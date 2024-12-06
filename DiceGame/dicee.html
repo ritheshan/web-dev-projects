@@ -8,14 +8,37 @@
       href="https://fonts.googleapis.com/css?family=Indie+Flower|Lobster"
       rel="stylesheet"
     />
+    <style>
+      /* Center the button in the div */
+      .button-container {
+        display: flex;
+        justify-content: center; /* Horizontally center the button */
+        align-items: center; /* Vertically center the button */
+        height: 100px; /* Give the div a fixed height */
+      }
+      button {
+        padding: 10px 20px; /* Add some padding for better appearance */
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+      button:hover {
+        background-color: #45a049; /* Darken the button color on hover */
+      }
+    </style>
   </head>
   <body>
     <div class="container">
-      <h1>Refresh Me</h1>
+      <h1>Roll the dice!</h1>
 
       <div class="dice">
         <p>Player 1</p>
-        <img    onclick="rollDice(1)" class="img1 " src="./images/dice6.png" />
+        <!-- <img    onclick="rollDice(1)" class="img1 " src="./images/dice6.png" /> -->
+        <img  onclick="rollDice(1)" class="img1" src="./images/dice1.png" alt="Dice showing 1" />
+
       </div>
 
       <div class="dice">
@@ -23,7 +46,9 @@
         <img  onclick="rollDice(2)" class="img2 " src="./images/dice6.png" />
       </div>
     </div>
-
+    <div class="button-container">
+      <button onclick="resetGame()">Reset</button>
+    </div>
     <footer>www 🎲 App Brewery 🎲 com</footer>
     <script src="./index.js"></script>
   </body>
