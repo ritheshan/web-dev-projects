@@ -3,5 +3,6 @@ document.querySelectorAll(".drum")[i].addEventListener("click",handleclick);
 
 }
 function handleclick(){
-    alert("i got clicked");
+    var audio=new Audio("./sounds/tom-1.mp3");
+    audio.play();
 }
