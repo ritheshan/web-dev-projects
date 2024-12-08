@@ -1,1 +1,33 @@
 
+/* Define the initial styles */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 10px;
+    border: none;
+    background-color: #007BFF;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+/* Define classes for various states */
+.clicked {
+    background-color: #28A745;
+    color: white;
+}
+
+.hovered {
+    background-color: #FFC107;
+    color: black;
+}
+
+.reset {
+    background-color: #DC3545;
+    color: white;
+}
