@@ -24,25 +24,27 @@ function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour); // Add to the game sequence
+  playSound(randomChosenColour); // Play sound
+  animatePress(randomChosenColour);
 
   // Play the full sequence for the user to follow
-  playSequence();
+  // playSequence();
 }
 
 // Play the current game sequence
-function playSequence() {
-  let i = 0;
-  const interval = setInterval(() => {
-    if (i < gamePattern.length) {
-      var color = gamePattern[i];
-      $("#" + color).fadeIn(100).fadeOut(100).fadeIn(100);
-      playSound(color);
-      i++;
-    } else {
-      clearInterval(interval); // Stop once all colors are shown
-    }
-  }, 600); // Delay between showing each color
-}
+// function playSequence() {
+//   let i = 0;
+//   const interval = setInterval(() => {
+//     if (i < gamePattern.length) {
+//       var color = gamePattern[i];
+//       $("#" + color).fadeIn(100).fadeOut(100).fadeIn(100);
+//       playSound(color);
+//       i++;
+//     } else {
+//       clearInterval(interval); // Stop once all colors are shown
+//     }
+//   }, 600); // Delay between showing each color
+// }
 
 // Handle user button clicks
 $(".btn").click(function () {
