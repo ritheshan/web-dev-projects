@@ -13,6 +13,23 @@ app.get("/about",(req,res)=>{
     res.send("<h1>hi , what about me?</h1>");
 console.log(req.rawHeaders);
 });
+app.post("/register", (req, res) => {
+    //Do something with the data
+    res.sendStatus(201);
+  });
+  
+  app.put("/user/angela", (req, res) => {
+    res.sendStatus(200);
+  });
+  
+  app.patch("/user/angela", (req, res) => {
+    res.sendStatus(200);
+  });
+  
+  app.delete("/user/angela", (req, res) => {
+    //Deleting
+    res.sendStatus(200);
+  });
 app.listen(port,()=>{
     console.log(`server running on port ${port}.`)
 })
