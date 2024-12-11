@@ -5,6 +5,8 @@ const port = 3000;
 
 app.get("/", (req, res) => {
   const today = new Date();
+//   const today = new Date("June 24, 2023 11:13:00");
+
   //Test code
   // weekend:
   // new Date("June 24, 2023 11:13:00");
