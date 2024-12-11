@@ -5,7 +5,6 @@ const port = 3000;
 
 app.use((req,res,next)=>{
     console.log("request method:",req.method);
-    console.log("request url:",req.url);
     next();
 });
 app.get("/", (req, res) => {
