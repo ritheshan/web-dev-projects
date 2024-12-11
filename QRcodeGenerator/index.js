@@ -14,7 +14,7 @@ inquirer
     const url=answers.url;
     
 var qr_png = qr.image('url');
-qr_png.pipe(fs.createWriteStream('qr.pngf'));
+qr_png.pipe(fs.createWriteStream('qr.png'));
 fs.writeFile('url.txt', url, (err) => {
     if (err) throw err;
     console.log('The file has been saved!');
