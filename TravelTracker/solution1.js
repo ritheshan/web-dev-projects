@@ -24,8 +24,11 @@ app.get("/", async (req, res) => {
     const result = await pool.query("SELECT country_code FROM visited_country");
     const countries = result.rows.map((row) => row.country_code);
 
-    console.log(result.rows);
-    res.render("index.ejs", { countries: countries, total: countries.length });
+    console.log("Countries fetched:", countries);  // Debugging the fetched countries
+
+    // Pass countries as a JSON string to the EJS template
+    res.render("index.ejs", { countries: JSON.stringify(countries), total: countries.length });
+    console.log("Countries fetched:", countries); 
   } catch (err) {
     console.error("Error executing query:", err.stack);
     res.status(500).send("Database error");

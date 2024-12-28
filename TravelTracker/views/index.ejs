@@ -376,12 +376,19 @@
   <h2 class="total-count">Total Countries: <%=total%>
   </h2>
   <script>
-    const country_codes = "<%= countries %>".split(",") 
-    console.log(typeof ("<%= countries %>"))
-    country_codes.forEach(code => {
-      document.getElementById(code).style.fill = 'teal'
-    });
+    // Parsing the JSON string into a JavaScript array
+    const country_codes = JSON.parse('<%- countries %>');  // Safely insert the array
 
+    console.log("these are the country code",country_codes);  // Check if the array is passed correctly
+
+    country_codes.forEach((code) => {
+      const countryElement = document.getElementById(code);
+      if (countryElement) {
+        countryElement.style.fill = 'teal'; // Change color to teal
+      } else {
+        console.log(`No element found for country code: ${code}`);
+      }
+    });
   </script>
 </body>
 
