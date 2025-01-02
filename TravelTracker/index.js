@@ -14,15 +14,26 @@ const pool = new pg.Pool({
   port: 5432,
 });
 
+let currentUserId = 1;
+let users = [];
+
 async function checkVisisted() {
   // Fetch data using the pool
-  const result = await pool.query("SELECT country_code FROM visited_country");
+  const result = await pool.query(
+    "SELECT country_code FROM visited_countries JOIN users ON users.id = user_id WHERE user_id = $1; ",
+    [currentUserId]
+  );
   const countries = result.rows.map((row) => row.country_code);
 
   console.log("Fetched countries:", countries);
 
   // Send countries as a JSON-safe string to EJS
   return countries;
+}
+async function getCurrentUser() {
+  const result = await pool.query("SELECT * FROM users");
+  users = result.rows;
+  return users.find((user) => user.id == currentUserId);
 }
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -32,8 +43,9 @@ app.use(express.static("public"));
 app.get("/", async (req, res) => {
   try {
     // Fetch data using the pool
-    const result = await pool.query("SELECT country_code FROM visited_country");
-    const countries = result.rows.map((row) => row.country_code);
+    
+    const countries = await checkVisisted();
+    const currentUser = await getCurrentUser();
 
     console.log("Fetched countries:", countries);
 
@@ -41,6 +53,8 @@ app.get("/", async (req, res) => {
     res.render("index.ejs", {
       countries: JSON.stringify(countries),
       total: countries.length,
+      users: users,
+      color: currentUser.color,
     });
   } catch (err) {
     console.error("Error executing query:", err.stack);
@@ -77,11 +91,12 @@ app.post("/add", async (req, res) => {
 
     // Step 3: Insert the ID into the visited_country table
     try {
-    await pool.query(
-      "INSERT INTO visited_country (country_code) VALUES ($1)",
-      [countryId]
-    );
-    console.log(`Country "${userInput}" with ID ${countryId} added to visited_country.`);
+      await pool.query(
+        "INSERT INTO visited_countries (user_id, country_code) VALUES ($1, $2)",
+        [currentUserId, countryId]
+      );
+      
+    console.log(`Country "${userInput}" with ID ${countryId} added to visited_countries.`);
     res.redirect("/"); // Redirect back to the home page or another route
   } catch (err) {
     console.log(err);
@@ -101,6 +116,38 @@ app.post("/add", async (req, res) => {
       error: "Country name does not exist, try again.",
     });
   }
+});
+
+app.post("/user", async (req, res) => {
+
+  if (req.body.add === "new") {
+    res.render("new.ejs");
+  } else {
+    currentUserId = req.body.user;
+    res.redirect("/");
+  }
+});
+
+app.post("/new", async (req, res) => {
+  const name = req.body.name; 
+  const color = req.body.color;
+  try {
+    const result = await pool.query(
+      "INSERT INTO users (name, color) VALUES ($1, $2) RETURNING id",
+      [name, color]
+    );
+    const data = result.rows[0];
+    const userId = data.id;
+    currentUserId = userId;
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
+
+
+  //Hint: The RETURNING keyword can return the data that was inserted.
+  //https://www.postgresql.org/docs/current/dml-returning.html
+
 });
 
 // Start the server
