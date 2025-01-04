@@ -42,7 +42,7 @@ app.post("/register", async (req, res) => {
 
   try {
     // Hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10); // 10 indicates the rounds of hashing
 
     // Insert user into the database
     const query = "INSERT INTO usersAuthentication (email, password) VALUES ($1, $2) RETURNING id";
