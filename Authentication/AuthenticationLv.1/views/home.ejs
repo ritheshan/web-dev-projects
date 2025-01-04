@@ -1,0 +1,30 @@
+<%- include('partials/header') %>
+
+<div class="jumbotron centered">
+  <div class="container">
+    <i class="fas fa-key fa-6x"></i>
+    <h1 class="display-3">Secrets</h1>
+    <p class="lead">Don't keep your secrets, share them anonymously!</p>
+    <hr>
+    <a class="btn btn-light btn-lg" href="/register" role="button">Register</a>
+    <a class="btn btn-dark btn-lg" href="/login" role="button">Login</a>
+
+    <% if (message) { %>
+      <div id="message" class="alert alert-success mt-3">
+        <%= message %>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<script>
+  // Automatically hide the message after 5 seconds
+  setTimeout(() => {
+    const messageDiv = document.getElementById('message');
+    if (messageDiv) {
+      messageDiv.style.display = 'none';
+    }
+  }, 5000);
+</script>
+
+<%- include('partials/footer') %>
