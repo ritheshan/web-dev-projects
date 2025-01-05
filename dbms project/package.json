@@ -1,0 +1,15 @@
+{
+  "name": "dbms-project",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Venika",
+  "license": "ISC",
+  "description": "Food recommendation based on health analysis",
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {}
+}
